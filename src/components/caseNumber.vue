@@ -100,8 +100,6 @@
         </ul>
       </div>
     </div>
-
-    <div id="worldMap"></div>
   </div>
 </template>
 
@@ -133,20 +131,13 @@ export default {
       },
     },
   },
-  mounted(){
-      this.$charts.worldMap("worldMap");
-  }
 };
 </script>
 
 <style scoped>
-#worldMap{
-    width: 400px;
-    height: 400px;
-}
 .case-num {
   background-color: #fff;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 2px solid #f1f1f1;
   padding: 20px;
 }
 

@@ -5,10 +5,15 @@ const install = function(Vue) {
         $charts: {
             get() {
                 return {
-                    chinaMap: function(id) {
+                    chinaMap: function(id, data) {
                         var dom = document.getElementById(id);
                         var myChart = echarts.init(dom);
                         var option = {
+                            tooltip: {
+                                formatter(data) {
+                                    return "<div><p>" + data.name + "</p><p>现存确诊:" + data.value + "</p></div>"
+                                }
+                            },
                             series: [{
                                 name: '省',
                                 type: 'map',
@@ -37,7 +42,9 @@ const install = function(Vue) {
                                         borderWidth: 0,
                                         shadowColor: 'rgba(0, 0, 0, 0.5)'
                                     }
-                                }
+                                },
+
+                                data: data
                             }]
                         };
                         myChart.setOption(option, true);

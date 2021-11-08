@@ -3,6 +3,7 @@
     <topbar></topbar>
     <info :Info="Info"></info>
     <case-number :caseNumberData="caseNumberData"></case-number>
+    <maps></maps>
   </div>
 </template>
 
@@ -11,11 +12,13 @@ import topbar from "../components/topbar.vue";
 import info from "../components/Info.vue";
 import caseNumber from "../components/caseNumber.vue";
 import http from "../utils/api";
+import maps from '../components/maps.vue'
 export default {
   components: {
     topbar,
     info,
     caseNumber,
+    maps
   },
   data() {
     return {
@@ -52,6 +55,8 @@ export default {
         key: "90a8094c1e2b2252c6cd8e608dbb7159",
       },
     });
+
+    
     console.log(res);
     if (res.code == 200) {
       this.Info.note1 = res.newslist[0].desc.note1;
@@ -72,7 +77,8 @@ export default {
       this.caseNumberData.seriousCount = res.newslist[0].desc.seriousCount;
 
       this.caseNumberData.suspectedIncr = res.newslist[0].desc.suspectedIncr;
-      this.caseNumberData.currentConfirmedIncr = res.newslist[0].desc.currentConfirmedIncr;
+      this.caseNumberData.currentConfirmedIncr =
+        res.newslist[0].desc.currentConfirmedIncr;
       this.caseNumberData.confirmedIncr = res.newslist[0].desc.confirmedIncr;
       this.caseNumberData.curedIncr = res.newslist[0].desc.curedIncr;
       this.caseNumberData.deadIncr = res.newslist[0].desc.deadIncr;
