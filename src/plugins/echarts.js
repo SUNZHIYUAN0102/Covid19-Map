@@ -14,6 +14,33 @@ const install = function(Vue) {
                                     return "<div><p>" + data.name + "</p><p>现存确诊:" + data.value + "</p></div>"
                                 }
                             },
+                            visualMap: [{
+                                type: "piecewise",
+                                pieces: [{
+                                        min: 0,
+                                        max: 0,
+                                        color: "#fff"
+                                    }, {
+                                        min: 1,
+                                        max: 10,
+                                        color: "#FDFDCF"
+                                    },
+                                    {
+                                        min: 10,
+                                        max: 100,
+                                        color: "#FE9E83"
+                                    },
+                                    {
+                                        min: 100,
+                                        max: 500,
+                                        color: "#E55A4E"
+                                    },
+                                    {
+                                        min: 500,
+                                        color: "#4f070d"
+                                    }
+                                ]
+                            }],
                             series: [{
                                 name: '省',
                                 type: 'map',
@@ -49,41 +76,42 @@ const install = function(Vue) {
                         };
                         myChart.setOption(option, true);
                     },
-                    worldMap: function(id) {
+                    worldMap: function(id, data) {
                         var dom = document.getElementById(id);
                         var myChart = echarts.init(dom);
                         var option = {
-                            title: {
-                                text: '世界地图', // 主标题文本，支持使用 \n 换行
-                                top: 20, // 定位 值: 'top', 'middle', 'bottom' 也可以是具体的值或者百分比
-                                left: 'center', // 值: 'left', 'center', 'right' 同上
-                                textStyle: { // 文本样式
-                                    fontSize: 24,
-                                    fontWeight: 600,
-                                    color: '#fff'
+                            tooltip: {
+                                formatter(data) {
+                                    return "<div><p>" + data.name + "</p><p>现存确诊:" + data.value + "</p></div>"
                                 }
                             },
-
-                            // 视觉映射组件
-                            visualMap: {
-                                type: 'continuous', // continuous 类型为连续型  piecewise 类型为分段型
-                                show: true, // 是否显示 visualMap-continuous 组件 如果设置为 false，不会显示，但是数据映射的功能还存在
-                                // 指定 visualMapContinuous 组件的允许的最小/大值。'min'/'max' 必须用户指定。
-                                // [visualMap.min, visualMax.max] 形成了视觉映射的『定义域』
-                                min: 0,
-                                max: 1000000,
-                                // 文本样式
-                                textStyle: {
-                                    fontSize: 14,
-                                    color: '#fff'
-                                },
-                                realtime: false, // 拖拽时，是否实时更新
-                                calculable: true, // 是否显示拖拽用的手柄
-                                // 定义 在选中范围中 的视觉元素
-                                inRange: {
-                                    color: ['#9fb5ea', '#e6ac53', '#74e2ca', '#85daef', '#9feaa5', '#5475f5'] // 图元的颜色
-                                }
-                            },
+                            visualMap: [{
+                                type: "piecewise",
+                                pieces: [{
+                                        min: 0,
+                                        max: 0,
+                                        color: "#fff"
+                                    }, {
+                                        min: 1000,
+                                        max: 10000,
+                                        color: "#FDFDCF"
+                                    },
+                                    {
+                                        min: 10000,
+                                        max: 50000,
+                                        color: "#FE9E83"
+                                    },
+                                    {
+                                        min: 50000,
+                                        max: 100000,
+                                        color: "#E55A4E"
+                                    },
+                                    {
+                                        min: 100000,
+                                        color: "#4f070d"
+                                    }
+                                ]
+                            }],
                             series: [{
                                 type: 'map', // 类型
                                 // 系列名称，用于tooltip的显示，legend 的图例筛选 在 setOption 更新数据和配置项时用于指定对应的系列
@@ -112,6 +140,7 @@ const install = function(Vue) {
                                         areaColor: '#FF6347' // 地图区域的颜色
                                     }
                                 },
+                                data: data
                             }]
                         }
                         myChart.setOption(option, true);
